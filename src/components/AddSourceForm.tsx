@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef, useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useRef, useState, useTransition, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,8 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { addNewsSourceAction, confirmAddSource } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 import type { SuggestedSource, NewsSource } from '@/types';
-import { PlusCircle, Info, Search, CheckCircle, XCircle } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { PlusCircle, Search } from 'lucide-react';
 
 function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
@@ -26,7 +25,7 @@ export function AddSourceForm() {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   
-  const [suggestState, suggestFormAction] = useFormState(addNewsSourceAction, { success: false });
+  const [suggestState, suggestFormAction] = useActionState(addNewsSourceAction, { success: false });
   const suggestFormRef = useRef<HTMLFormElement>(null);
 
   const [suggestedSources, setSuggestedSources] = useState<SuggestedSource[]>([]);
