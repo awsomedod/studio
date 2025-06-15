@@ -20,7 +20,9 @@ export type SuggestNewsSourcesInput = z.infer<typeof SuggestNewsSourcesInputSche
 
 const SuggestNewsSourcesOutputSchema = z.object({
   sources: z
-    .array(z.string())
+ .array(
+      z.string().url('Must be a valid URL.').regex(/^(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&//=]*)$/, 'Must be a valid URL format.')
+    )
     .describe('An array of suggested news sources related to the topic.'),
 });
 export type SuggestNewsSourcesOutput = z.infer<typeof SuggestNewsSourcesOutputSchema>;
@@ -38,7 +40,7 @@ const prompt = ai.definePrompt({
   Topic: {{{topic}}}
   Bias: {{{bias}}}
 
-  Suggest 5 news sources related to the topic.`,
+  Suggest 5 valid URLs of news sources related to the topic.`,
 });
 
 const suggestNewsSourcesFlow = ai.defineFlow(
