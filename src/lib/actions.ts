@@ -50,7 +50,7 @@ export async function addNewsSourceAction(formData: FormData): Promise<{ success
     revalidatePath('/dashboard/sources');
     return { success: true, message: `Sources related to "${topic}" suggested. First URL-like suggestion auto-added if found.`, suggestedSources: suggested };
   } catch (error) {
-    console.error('Error suggesting news sources:', error);
+    console.error('Error suggesting news sources2:', error);
     return { success: false, message: 'Failed to suggest news sources.' };
   }
 }
